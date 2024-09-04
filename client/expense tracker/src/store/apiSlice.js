@@ -35,7 +35,7 @@ export const apiSlice = createApi({
         // delete: 'http://localhost:3000/api/transaction'
         url: "/api/transaction",
         method: "DELETE",
-        body: recordId,
+        body: { _id: recordId },
       }),
       invalidatesTags: ["transaction"],
     }),

@@ -1,4 +1,4 @@
-
+const { default: mongoose } = require("mongoose");
 const model = require("../models/models.js");
 
 async function createCategories(req, res) {
@@ -6,7 +6,6 @@ async function createCategories(req, res) {
     const Create = new model.Categories({
       type: "Expense",
       color: "#FCBE44",
-
     });
 
     await Create.save();
@@ -58,7 +57,6 @@ async function Create_Transaction(req, res) {
     await create.save();
     return res.status(201).json(create);
   } catch (error) {
-    // error
     return res.status(500).json({ message: "Error" });
   }
 }
@@ -72,10 +70,13 @@ async function get_Transaction(req, res) {
       .json({ message: "Error 500 Bad Gateway from controller", err });
   }
 }
+
 async function delete_Transaction(req, res) {
   if (!req.body) return res.status(400).json("Request body Not Found");
 
-  let result = await model.Transaction.deleteOne({ _id: req.body }).clone();
+  let result = await model.Transaction.deleteOne({ _id: req.body._id
+    
+   }).clone();
   try {
     if (result.deletedCount === 0) {
       return res.status(404).json("No matching record found to delete");
@@ -115,7 +116,9 @@ async function get_labels(req, res) {
       console.log(data);
     })
     .catch((err) => {
-      res.status(500).res.json({ message: "Error agya yar", err: err.message });
+      res
+        .status(500)
+        .res.json({ message: "Error Fetching Labels", err: err.message });
     });
 }
 

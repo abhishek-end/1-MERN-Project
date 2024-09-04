@@ -8,7 +8,8 @@ export default function Form() {
   const onSubmit = async (data) => {
     if (!data) return;
     data.amount = parseFloat(data.amount);
-    await addTransaction(data).unwrap()
+    await addTransaction(data).unwrap();
+
     resetField("name");
     resetField("amount");
   };
@@ -27,7 +28,10 @@ export default function Form() {
               className='form-input'
             />
           </div>
-          <select className='form-input' {...register("type", { required: true })}>
+          <select
+            className='form-input'
+            {...register("type", { required: true })}
+          >
             <option value='Investment'>Investment</option>
             <option value='Expense'>Expense</option>
             <option value='Savings'>Savings</option>
