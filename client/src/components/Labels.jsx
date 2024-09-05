@@ -1,5 +1,6 @@
 import React from "react";
 import { default as api } from "../store/apiSlice";
+import { getLabels } from "../helpers/helper";
 
 export default function Labels() {
   const { data, isFetching, isSuccess, isError } = api.useGetLabelsQuery();
@@ -10,7 +11,7 @@ export default function Labels() {
   } else if (isSuccess) {
     Transaction = (
       <>
-        {data.map((value, index) => (
+        {getLabels(data).map((value, index) => (
           <LabelComponent key={index} data={value}></LabelComponent>
         ))}
       </>
@@ -32,7 +33,7 @@ function LabelComponent({ data }) {
         ></div>
         <h3>{data.type ?? ""}</h3>
       </div>
-      <h3>{data.percent ?? 0}%</h3>
+      <h3>{Math.round(data.percent ?? 0)}%</h3>
     </div>
   );
 }

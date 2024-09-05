@@ -2,18 +2,31 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { default as api } from "../store/apiSlice";
+import { getSum } from "../helpers/helper";
 const List = () => {
   const { data, isFetching, isSuccess, isError } = api.useGetLabelsQuery();
   const [deleteTransaction] = api.useDeleteTransactionMutation();
 
-  const handleDelete = (e) => {
-    deleteTransaction(e.target.dataset.id);
+  const handleDelete = async (e) => {
+    const id = e.currentTarget.dataset.id;
+    if (id) {
+      try {
+        await deleteTransaction(id).unwrap();
+        console.log(`Transaction with ID ${id} deleted.`);
+      } catch (error) {
+        console.error("Failed to delete the transaction:", error);
+      }
+    } else {
+      console.error("No ID found in data-id.");
+    }
   };
+
   let transaction;
 
   if (isFetching) {
     transaction = <div>Fetching</div>;
   } else if (isSuccess) {
+    getSum(data, "type");
     transaction = (
       <>
         {data.map((value, index) => (
