@@ -1,8 +1,9 @@
 {
   "version": 2,
+  "name": "ExpansTracker",
   "builds": [
     {
-      "src": "server/api/**/*.js",
+      "src": "server/server.js",
       "use": "@vercel/node"
     },
     {
@@ -15,12 +16,12 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server/api/$1"
+      "src": "/(.*)",
+      "dest": "/server/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/client/$1"
+      "dest": "/client/"
     }
   ]
 }
