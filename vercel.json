@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "ExpansTracker",
   "builds": [
     {
       "src": "server/server.js",
@@ -16,12 +15,16 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "/server/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/client/"
+      "dest": "/client/$1"
     }
-  ]
+  ],
+  "env": {
+    "MONGO_URI": "mongodb+srv://abhishekyadav49534:kNWWhNOL1xj7oEOe@expanddetails.c1k4p.mongodb.net/?retryWrites=true&w=majority&appName=expandDetails",
+    "PORT": "3000"
+  }
 }
